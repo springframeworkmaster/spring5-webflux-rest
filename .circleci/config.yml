@@ -8,6 +8,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
+      - image: springframeworkmaster/circleci_build
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -38,5 +39,23 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
-      # run tests!
-      - run: gradle test
+      # run tests and package
+      - run: ./gradlew clean test
+
+      - run:
+                name: Save test results
+                command: |
+                  mkdir -p ~/junit/
+                  find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
+                when: always
+
+      - store_test_results:
+                path: ~/junit
+
+      - store_artifacts:
+                path: ~/junit
+
+
+      - run:
+                name: Build Docker Image
+                command: ./gradlew bootRepackage -Pprod pushDockerLatest pushDockerVersionTag -x test
