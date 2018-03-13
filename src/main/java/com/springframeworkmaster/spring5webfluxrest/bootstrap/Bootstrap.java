@@ -29,15 +29,15 @@ public class Bootstrap implements CommandLineRunner{
             System.out.println("Loading data on bootstrap");
 
             categoryRepository.save(Category.builder()
-                   .description("Fruits").build());
+                   .description("Fruits").build()).block();
             categoryRepository.save(Category.builder()
-                    .description("Nuts").build());
+                    .description("Nuts").build()).block();
             categoryRepository.save(Category.builder()
-                    .description("Breads").build());
+                    .description("Breads").build()).block();
             categoryRepository.save(Category.builder()
-                    .description("Meat").build());
+                    .description("Meat").build()).block();
             categoryRepository.save(Category.builder()
-                    .description("Eggs").build());
+                    .description("Eggs").build()).block();
 
             System.out.println("Loaded Categories: " + categoryRepository.count().block());
 
@@ -45,28 +45,28 @@ public class Bootstrap implements CommandLineRunner{
 
             vendorRepository.save(Vendor.builder()
                     .firstName("Sai Krishna")
-                    .lastName("Kalwakuntla").build());
+                    .lastName("Kalwakuntla").build()).block();
 
 
             vendorRepository.save(Vendor.builder()
                     .firstName("Thirumal")
-                    .lastName("Reddy").build());
+                    .lastName("Reddy").build()).block();
 
             vendorRepository.save(Vendor.builder()
                     .firstName("Nithin")
-                    .lastName("Reddy").build());
+                    .lastName("Reddy").build()).block();
 
             vendorRepository.save(Vendor.builder()
                     .firstName("Nilam")
-                    .lastName("Khadka").build());
+                    .lastName("Khadka").build()).block();
 
             vendorRepository.save(Vendor.builder()
                     .firstName("Sai ")
-                    .lastName("Kumar").build());
+                    .lastName("Kumar").build()).block();
 
             vendorRepository.save(Vendor.builder()
                     .firstName("Sarika")
-                    .lastName("Kalwakuntla").build());
+                    .lastName("Kalwakuntla").build()).block();
             System.out.println("Loaded Categories: " + vendorRepository.count().block());
         }
     }
